@@ -16,6 +16,7 @@ constructor(props){
       copyBooks: []
   };
    this.onSearch = this.onSearch.bind(this);
+   this.updateRating = this.updateRating.bind(this);
   this.onAdd = this.onAdd.bind(this);
   }
    initBooks(){
@@ -52,11 +53,21 @@ constructor(props){
     this.setState({books: [...temp]});
     this.initBooks();
   }
+   updateRating(item){
+    var temp = [...this.state.books];
+    const index = temp.findIndex(x => x.id === item.id);
+    temp[index].title = item.title;
+    temp[index].image = item.image;
+    temp[index].rating = item.rating;
+
+    this.setState({books: [...temp]});
+    this.initBooks();
+  }
 render(){
   return (
     <div className="app">
     <Menu title="Amozon" onadd={this.onAdd} onsearch={this.onSearch} / >
-    <List items={this.state.copyBooks}/>
+    <List items={this.state.copyBooks}  onupdaterating={this.updateRating} />
     </div>
   );
 }
