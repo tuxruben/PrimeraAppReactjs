@@ -17,6 +17,7 @@ constructor(props){
   };
    this.onSearch = this.onSearch.bind(this);
    this.updateRating = this.updateRating.bind(this);
+  this.remove = this.remove.bind(this);
   this.onAdd = this.onAdd.bind(this);
   }
    initBooks(){
@@ -53,6 +54,12 @@ constructor(props){
     this.setState({books: [...temp]});
     this.initBooks();
   }
+   remove(id){
+    var temp = [...this.state.books];
+    const res = temp.filter(item => item.id != id);
+    this.setState({books: [...res]});
+    this.initBooks();
+  }
    updateRating(item){
     var temp = [...this.state.books];
     const index = temp.findIndex(x => x.id === item.id);
@@ -60,14 +67,14 @@ constructor(props){
     temp[index].image = item.image;
     temp[index].rating = item.rating;
 
-    this.setState({books: [...temp]});
+        this.setState({books: [...temp]});
     this.initBooks();
   }
 render(){
   return (
     <div className="app">
     <Menu title="Amozon" onadd={this.onAdd} onsearch={this.onSearch} / >
-    <List items={this.state.copyBooks}  onupdaterating={this.updateRating} />
+    <List items={this.state.copyBooks} onremove={this.remove} onupdaterating={this.updateRating} />
     </div>
   );
 }

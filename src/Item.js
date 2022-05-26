@@ -11,7 +11,7 @@ class Item extends React.Component{
             stars: []
         };
     this.onChangeRating = this.onChangeRating.bind(this);
-
+    this.onremove = this.onremove.bind(this);
     }
     componentDidMount(){
         this.setState({
@@ -32,6 +32,10 @@ class Item extends React.Component{
         });
 
         this.props.onupdaterating({id: this.state.id, title: this.state.title, image: this.state.image, rating: rating});
+    }
+        onremove(e){
+        console.log(this.props.id);
+        this.props.onremove(this.props.id);
     }
 render(){
         return(
@@ -54,7 +58,7 @@ render(){
                     </select>
                 </div>
                 <div className="actions">
-                    <button>Eliminar</button>
+                    <button onClick={this.onremove}>Eliminar</button>
                 </div>
             </div>
         );
